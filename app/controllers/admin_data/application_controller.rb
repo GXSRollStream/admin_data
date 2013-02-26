@@ -15,6 +15,7 @@ module AdminData
     protected
 
     self.config.asset_path = lambda {|asset| "/admin_data/public#{asset}"}
+    before_filter :authorization_skip, :authorization_check
 
     private
 
