@@ -2,7 +2,7 @@ module AdminData
 
   class ApplicationController < ::ApplicationController
 
-    include BuildKlasses
+    include ::AdminData::BuildKlasses
 
     before_filter :ensure_is_allowed_to_view
 
