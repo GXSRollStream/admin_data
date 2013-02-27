@@ -15,6 +15,7 @@ module AdminData
   autoload :Authenticator
   autoload :Search
   autoload :Analytics
+  autoload :BuildKlasses
 
   include SetupConfig
 
