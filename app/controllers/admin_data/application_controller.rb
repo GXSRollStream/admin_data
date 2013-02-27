@@ -12,7 +12,8 @@ module AdminData
 
     before_filter :build_klasses,  
                   :check_page_parameter, 
-                  :prepare_drop_down_klasses
+                  :prepare_drop_down_klasses,
+                  :authorization_check
 
     attr_reader :klass
 
