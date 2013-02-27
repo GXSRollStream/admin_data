@@ -4,7 +4,7 @@ module AdminData
 
     before_filter :ensure_is_allowed_to_view
 
-    helper_method :is_allowed_to_update?, :drop_down_for_klasses
+    helper_method :is_allowed_to_update?, :build_klasses
 
     layout 'admin_data'
 
@@ -43,7 +43,7 @@ module AdminData
     end
 
     def build_klasses
-      @klasses = _build_all_klasses
+      @klasses ||= _build_all_klasses
     end
 
     def _build_all_klasses
@@ -73,11 +73,6 @@ module AdminData
       end
     end
 
-    def drop_down_for_klasses
-      @drop_down_for_klasses ||= @klasses.inject([]) do |result, klass|
-        result << [klass.name.underscore, admin_data_search_url(:klass => klass.name.underscore)]
-      end
-    end
 
     def check_page_parameter
       # Got hoptoad error because of url like

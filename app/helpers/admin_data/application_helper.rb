@@ -1,6 +1,12 @@
 module AdminData
   module ApplicationHelper
 
+    def drop_down_for_klasses
+      @drop_down_for_klasses ||= build_klasses.inject([]) do |result, klass|
+        result << [klass.name.underscore, admin_data_search_url(:klass => klass.name.underscore)]
+      end
+    end
+
     def get_sort_order(column)
       if column == @sort_by_column_name && @sort_order == 'desc'
         "#{column} asc"
