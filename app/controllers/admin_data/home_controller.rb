@@ -1,9 +1,4 @@
-module AdminData
-  class HomeController < ApplicationController
-    def index
-      respond_to do |format|
-        format.html
-      end
-    end
+class AdminData::HomeController < AdminData::ApplicationController
+  def index
   end
 end
