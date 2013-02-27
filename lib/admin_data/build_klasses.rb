@@ -1,6 +1,7 @@
 module AdminData
   module BuildKlasses
     def build_klasses
+      @resource_authorized = true
       @klasses ||= _build_all_klasses
     end
 

@@ -10,14 +10,16 @@ module AdminData
 
     layout 'admin_data'
 
-    before_filter :build_klasses,  :check_page_parameter, :prepare_drop_down_klasses
+    before_filter :build_klasses,  
+                  :check_page_parameter, 
+                  :prepare_drop_down_klasses
 
     attr_reader :klass
 
     protected
 
     self.config.asset_path = lambda {|asset| "/admin_data/public#{asset}"}
-    before_filter :authorization_skip, :authorization_check
+
 
     private
 
@@ -65,6 +67,5 @@ module AdminData
     def is_allowed_to_update?
       AdminData.config.is_allowed_to_update.call(self)
     end
-
   end
 end
