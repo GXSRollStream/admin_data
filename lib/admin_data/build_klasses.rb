@@ -14,5 +14,21 @@ module AdminData
         $admin_data_all_klasses = remove_klasses_without_table(klasses).sort_by {|r| r.name.underscore}
       end
     end
+
+    def get_klass_names(model_names)
+      model_names.inject([]) do |output, model_name|
+        klass_name = model_name.sub(/\.rb$/,'').camelize
+        begin
+          output << Util.constantize_klass(klass_name)
+        rescue Exception => e
+          Rails.logger.debug e.message
+        end
+        output
+      end
+    end
+
+    def remove_klasses_without_table(klasses)
+      klasses.select { |k| k.ancestors.include?(ActiveRecord::Base) && k.connection.table_exists?(k.table_name) }
+    end
   end
 end

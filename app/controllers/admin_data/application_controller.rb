@@ -44,23 +44,6 @@ module AdminData
       end
     end
 
-    def remove_klasses_without_table(klasses)
-      klasses.select { |k| k.ancestors.include?(ActiveRecord::Base) && k.connection.table_exists?(k.table_name) }
-    end
-
-    def get_klass_names(model_names)
-      model_names.inject([]) do |output, model_name|
-        klass_name = model_name.sub(/\.rb$/,'').camelize
-        begin
-          output << Util.constantize_klass(klass_name)
-        rescue Exception => e
-          Rails.logger.debug e.message
-        end
-        output
-      end
-    end
-
-
     def check_page_parameter
       # Got hoptoad error because of url like
       # http://localhost:3000/admin_data/User/advance_search?page=http://201.134.249.164/intranet/on.txt?
