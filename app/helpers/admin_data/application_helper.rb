@@ -1,5 +1,6 @@
 module AdminData
   module ApplicationHelper
+    include BuildKlasses
 
     def drop_down_for_klasses
       @drop_down_for_klasses ||= build_klasses.inject([]) do |result, klass|

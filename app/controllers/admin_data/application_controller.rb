@@ -2,9 +2,11 @@ module AdminData
 
   class ApplicationController < ::ApplicationController
 
+    include BuildKlasses
+
     before_filter :ensure_is_allowed_to_view
 
-    helper_method :is_allowed_to_update?, :build_klasses
+    helper_method :is_allowed_to_update?
 
     layout 'admin_data'
 
@@ -39,21 +41,6 @@ module AdminData
         render :text => 'wrong params[:klass] was supplied' and return
       rescue NameError # in case wrong params[:klass] is supplied
         render :text => 'wrong params[:klass] was supplied' and return
-      end
-    end
-
-    def build_klasses
-      @klasses ||= _build_all_klasses
-    end
-
-    def _build_all_klasses
-      if defined? $admin_data_all_klasses
-        return $admin_data_all_klasses
-      else
-        model_dir = File.join(Rails.root, 'app', 'models')
-        model_names = Dir.chdir(model_dir) { Dir["*.rb"] }
-        klasses = get_klass_names(model_names)
-        $admin_data_all_klasses = remove_klasses_without_table(klasses).sort_by {|r| r.name.underscore}
       end
     end
 
